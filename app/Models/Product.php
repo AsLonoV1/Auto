@@ -19,5 +19,9 @@ class Product extends Model
         'product_count',
         'product_title'
     ];
+    public function category()
+    {
+        return $this->hasOne(Category::class,'id','category_id');
+    }
 
 }

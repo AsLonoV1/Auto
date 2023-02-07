@@ -20,10 +20,16 @@ class UserController extends Controller
     }
 
 
-    public function Create(Request $request)
+    public function  Create(Request $request)
     {
  
-        User::create($request->all());
+       // User::create($request->all());
+        $user= new User();
+        $user->name=$request->name;
+        $user->email=$request->email;
+        $user->phone=$request->phone;
+        $user->password=bcrypt($request->password);
+        $user->save();
        return 'User created successfully';
 
     }

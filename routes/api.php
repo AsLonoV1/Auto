@@ -48,6 +48,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
       Route::get('categoryDelete',[CategoryController::class,'Delete'])->name('categoryDelete');
 
 
+      
 
       Route::get('productList',[ProductController::class,'List'])->name('productList');
        
@@ -61,8 +62,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
      
-
-
+  
 
 
 

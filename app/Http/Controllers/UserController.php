@@ -38,7 +38,11 @@ class UserController extends Controller
     {
 
         $user =User::findOrFail($request->id);
-        $user->update($request->all());
+       if($request->name!=null) $user->name=$request->name;
+       if($request->email!=null) $user->email=$request->email;
+       if($request->phone!=null) $user->phone=$request->phone;
+       if($request->password!=null) $user->password=bcrypt($request->password);
+        $user->save();
         return $user;
  
     }

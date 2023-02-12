@@ -23,7 +23,6 @@ class UserController extends Controller
     public function  Create(Request $request)
     {
  
-       // User::create($request->all());
         $user= new User();
         $user->name=$request->name;
         $user->email=$request->email;
@@ -53,12 +52,5 @@ class UserController extends Controller
         $user->delete();
         return 'User deleted';
     }
-
-
-
-
-
-
-
 
 }

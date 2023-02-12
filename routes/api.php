@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\AuthController;
+
 
 
 
@@ -19,48 +21,58 @@ use App\Http\Controllers\ProductController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
 
-      Route::get('userList',[UserController::class,'List'])->name('userList');
-       
-      Route::get('userShow',[UserController::class,'Show'])->name('userShow');
+      Route::post('login',[AuthController::class,'login'])->name('login');
+ 
 
-      Route::post('userCreate',[UserController::class,'Create'])->name('userCreate');
+    
 
-      Route::post('userUpdate',[UserController::class,'Update'])->name('userUpdate');
+      Route::group(['middleware' => ["auth:sanctum"]], function(){
 
-      Route::get('userDelete',[UserController::class,'Delete'])->name('userDelete');
-      
+    
+            Route::get('userList',[UserController::class,'List'])->name('userList');
+            
+            Route::get('userShow',[UserController::class,'Show'])->name('userShow');
 
+            Route::post('userCreate',[UserController::class,'Create'])->name('userCreate');
 
+            Route::post('userUpdate',[UserController::class,'Update'])->name('userUpdate');
 
-      Route::get('categoryList',[CategoryController::class,'List'])->name('categoryList');
-       
-      Route::get('categoryShow',[CategoryController::class,'Show'])->name('categoryShow');
-
-      Route::post('categoryCreate',[CategoryController::class,'Create'])->name('categoryCreate');
-
-      Route::post('categoryUpdate',[CategoryController::class,'Update'])->name('categoryUpdate');
-
-      Route::get('categoryDelete',[CategoryController::class,'Delete'])->name('categoryDelete');
+            Route::get('userDelete',[UserController::class,'Delete'])->name('userDelete');
+            
 
 
-      
 
-      Route::get('productList',[ProductController::class,'List'])->name('productList');
-       
-      Route::get('productShow',[ProductController::class,'Show'])->name('productShow');
+            Route::get('categoryList',[CategoryController::class,'List'])->name('categoryList');
+            
+            Route::get('categoryShow',[CategoryController::class,'Show'])->name('categoryShow');
 
-      Route::post('productCreate',[ProductController::class,'Create'])->name('productCreate');
+            Route::post('categoryCreate',[CategoryController::class,'Create'])->name('categoryCreate');
 
-      Route::post('productUpdate',[ProductController::class,'Update'])->name('productUpdate');
+            Route::post('categoryUpdate',[CategoryController::class,'Update'])->name('categoryUpdate');
 
-      Route::get('productDelete',[ProductController::class,'Delete'])->name('productDelete');
+            Route::get('categoryDelete',[CategoryController::class,'Delete'])->name('categoryDelete');
 
 
+            
+
+            Route::get('productList',[ProductController::class,'List'])->name('productList');
+            
+            Route::get('productShow',[ProductController::class,'Show'])->name('productShow');
+
+            Route::post('productCreate',[ProductController::class,'Create'])->name('productCreate');
+
+            Route::post('productUpdate',[ProductController::class,'Update'])->name('productUpdate');
+
+            Route::get('productDelete',[ProductController::class,'Delete'])->name('productDelete');
+
+
+
+            Route::get('logOut',[AuthController::class,'logOut'])->name('logOut');
+
+
+    });
      
   
 

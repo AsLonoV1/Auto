@@ -23,7 +23,13 @@ class ProductController extends Controller
     public function Create(Request $request)
     {
       
-        Product::create($request->all());
+       $product= new Product();
+       $product->category_id=$request->category_id;
+       $product->product_title=$request->product_title;
+       $product->product_amout=$request->product_amout;
+       $product->product_count=$request->product_count;
+       $product->product_chosen=0;
+       $product->save();
        return 'Product created successfully';
 
     }
@@ -43,9 +49,5 @@ class ProductController extends Controller
         $product->delete();
         return 'Product deleted';
     }
-
-
-
-
 
 }

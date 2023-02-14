@@ -16,7 +16,6 @@ class CategoryController extends Controller
 
     public function Show(Request $request)
     {
-       // return  Category::where('id',$request->id)->first(); 
        return  Category::where('id',$request->id)->with('products')->first(); 
     }
 

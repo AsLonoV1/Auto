@@ -20,7 +20,8 @@ class UserController extends Controller
     }
 
 
-    public function  Create(Request $request)
+    public function  
+    Create(Request $request)
     {
  
         $user= new User();
@@ -37,7 +38,7 @@ class UserController extends Controller
     {
 
         $user =User::findOrFail($request->id);
-       if($request->name!=null) $user->name=$request->name;
+       if(!is_null($request->name)) $user->name=$request->name;
        if($request->email!=null) $user->email=$request->email;
        if($request->phone!=null) $user->phone=$request->phone;
        if($request->password!=null) $user->password=bcrypt($request->password);

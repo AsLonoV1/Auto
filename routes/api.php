@@ -2,10 +2,11 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
 
 
 
@@ -21,64 +22,56 @@ use App\Http\Controllers\AuthController;
 |
 */
 
+Route::post('login', [AuthController::class, 'login']);
+Route::post('refreshToken', [AuthController::class, 'refreshToken']);
 
 
-      Route::post('login',[AuthController::class,'login'])->name('login');
- 
+Route::group(['middleware' => ["auth:api"]], function(){
 
-    
+  Route::prefix('user')->controller(UserController::class)->group(function(){
+      Route::get('list','List')->name('userList');
+      Route::get('show','Show')->name('userShow');
+      Route::post('create','Create')->name('userCreate');
+      Route::post('update','Update')->name('userUpdate');
+      Route::get('delete','Delete')->name('userDelete');
+  });
+      
+  Route::prefix('category')->controller(CategoryController::class)->group(function(){
+      Route::get('list','List')->name('categoryList');
+      Route::get('show','Show')->name('categoryShow');
+      Route::post('create','Create')->name('categoryCreate');
+      Route::post('update','Update')->name('categoryUpdate');
+      Route::get('delete','Delete')->name('categoryDelete');
+  });
 
-      Route::group(['middleware' => ["auth:sanctum"]], function(){
+      
+  Route::prefix('product')->controller(ProductController::class)->group(function(){
+      Route::get('list','List')->name('productList');
+      Route::get('show','Show')->name('productShow');
+      Route::post('create','Create')->name('productCreate');
+      Route::post('update','Update')->name('productUpdate');
+      Route::get('delete','Delete')->name('productDelete');
+  });
+      
+  Route::controller(OrderController::class)->group(function(){
+      Route::get('basket','basket')->name('basket');
+      Route::get('abort','abort')->name('abort');
+      Route::get('order','order')->name('order');
+  });
+      
+      
+      Route::get('logOut',[AuthController::class,'logOut'])->name('logOut');
 
-    
-            Route::get('userList',[UserController::class,'List'])->name('userList');
-            
-            Route::get('userShow',[UserController::class,'Show'])->name('userShow');
-
-            Route::post('userCreate',[UserController::class,'Create'])->name('userCreate');
-
-            Route::post('userUpdate',[UserController::class,'Update'])->name('userUpdate');
-
-            Route::get('userDelete',[UserController::class,'Delete'])->name('userDelete');
-            
-
-
-
-            Route::get('categoryList',[CategoryController::class,'List'])->name('categoryList');
-            
-            Route::get('categoryShow',[CategoryController::class,'Show'])->name('categoryShow');
-
-            Route::post('categoryCreate',[CategoryController::class,'Create'])->name('categoryCreate');
-
-            Route::post('categoryUpdate',[CategoryController::class,'Update'])->name('categoryUpdate');
-
-            Route::get('categoryDelete',[CategoryController::class,'Delete'])->name('categoryDelete');
-
-
-            
-
-            Route::get('productList',[ProductController::class,'List'])->name('productList');
-            
-            Route::get('productShow',[ProductController::class,'Show'])->name('productShow');
-
-            Route::post('productCreate',[ProductController::class,'Create'])->name('productCreate');
-
-            Route::post('productUpdate',[ProductController::class,'Update'])->name('productUpdate');
-
-            Route::get('productDelete',[ProductController::class,'Delete'])->name('productDelete');
+      
 
 
-
-            Route::get('logOut',[AuthController::class,'logOut'])->name('logOut');
-
-
-    });
-     
-  
-
-
-
-
+      
+});
+          
+          
+          
+          
+        
 
 
 

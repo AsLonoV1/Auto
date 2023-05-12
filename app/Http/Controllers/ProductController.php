@@ -14,7 +14,7 @@ class ProductController extends Controller
     }
 
 
-    public function     Show(Request $request)
+    public function Show(Request $request)
     {
         return  Product::where('id',$request->id)->with('category')->first(); 
     }

@@ -8,20 +8,6 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 
-
-
-
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
 Route::post('login', [AuthController::class, 'login']);
 Route::post('refreshToken', [AuthController::class, 'refreshToken']);
 
@@ -43,8 +29,7 @@ Route::group(['middleware' => ["auth:api"]], function(){
       Route::post('update','Update')->name('categoryUpdate');
       Route::get('delete','Delete')->name('categoryDelete');
   });
-
-      
+  
   Route::prefix('product')->controller(ProductController::class)->group(function(){
       Route::get('list','List')->name('productList');
       Route::get('show','Show')->name('productShow');
@@ -58,28 +43,7 @@ Route::group(['middleware' => ["auth:api"]], function(){
       Route::get('abort','abort')->name('abort');
       Route::get('order','order')->name('order');
   });
-      
-      
+       
       Route::get('logOut',[AuthController::class,'logOut'])->name('logOut');
-
-      
-
-
       
 });
-          
-          
-          
-          
-        
-
-
-
-
-
-
-
-
-
-
-
